@@ -5,8 +5,8 @@
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
-
-
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace NewsHeadlines.Action
 {
@@ -78,16 +78,48 @@ namespace NewsHeadlines.Action
                     Console.WriteLine(headlinescore);
                 }
 
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
-
+        //sorting points
+        public void SortingPointWise()
+        {
+            try
+            {
+                foreach (var score in driver.FindElements(By.XPath("//span[@class='score']")))
+                {
+                    string records = score.Text;
+                    // Splitting to find the word
+                    string[] numbers = Regex.Split(records, @"\D+");
+                    foreach (string value in numbers)
+                    {
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            int i = int.Parse(value);
+                            list.Add(i);
+                            Console.WriteLine("Headline points: {0}", i);
+                        }
+                    }
+                }
+                HighestData();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        public void HighestData()
+        {
+            var res = list.OrderByDescending(g => g).Take(1);
+            foreach (var g in res)
+            {
+                Console.WriteLine("Highest value:{0}", g);
+            }
+        }
 
     }
-
 }
 

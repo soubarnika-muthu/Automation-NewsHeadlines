@@ -8,9 +8,7 @@ using NUnit.Framework;
 namespace NewsHeadlines
 {
     public class Tests:Base.BaseClass
-    {
-
-       
+    {      
         [Test]
         public void Test_DisplayRecords()
         {
@@ -18,6 +16,7 @@ namespace NewsHeadlines
             display.DisplayTitle();
             display.DisplayScore();
             display.Display_Records();
+            display.SortingPointWise();
 
 
         }
