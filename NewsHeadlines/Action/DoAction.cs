@@ -119,6 +119,78 @@ namespace NewsHeadlines.Action
                 Console.WriteLine("Highest value:{0}", g);
             }
         }
+        // Function to count frequency of words in the given list
+        public void Count_Frequency()
+        {
+            try
+            {
+                //Using dictionary 
+                SortedDictionary<String,
+                                 int> mp = new SortedDictionary<String,
+                                                                int>();
+                String key = "";
+                int value = 0;
+                foreach (var headlines in driver.FindElements(By.CssSelector("a.storylink")))
+                {
+                    string records = headlines.Text;
+                    // Splitting to find the word
+                    string[] arr = records.Split(' ');
+                    //Adding itmes into list
+                    foreach (string arrItem in arr)
+                    {
+                        list1.Add(arrItem);
+                    }
+                }
+                ////printing list
+                //Console.WriteLine("Headlines");
+                //for (int i = 0; i < list1.Count; i++)
+                //{
+                //    Console.WriteLine(list1[i]);
+                //}
+
+                // Loop to iterate over the words
+                for (int i = 0; i < list1.Count; i++)
+                {
+
+                    // Condition to check if the
+                    // array element is present
+                    // the hash-map
+                    if (mp.ContainsKey(list1[i]))
+                    {
+                        mp[list1[i]] = mp[list1[i]] + 1;
+                    }
+                    else
+                    {
+                        mp.Add(list1[i], 1);
+                    }
+                }
+                Console.WriteLine("************Frequency of words****************");
+                // Loop to iterate over the
+                // elements of the map
+                foreach (KeyValuePair<String, int> entry in mp)
+                {
+                    Console.WriteLine(entry.Key + " - " +
+                                      entry.Value);
+                    // Check for word having highest frequency
+                    if (entry.Value > value)
+                    {
+                        value = entry.Value;
+                        key = entry.Key;
+                    }
+                }
+
+                //finding maxiumm value
+                var maxValue = mp.Values.Max();
+
+                Console.WriteLine("The most repeted word is :" + key);
+                Console.WriteLine("No.of.Times:" + maxValue);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
 
     }
 }

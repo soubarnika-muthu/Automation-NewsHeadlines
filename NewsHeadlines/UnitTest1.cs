@@ -17,6 +17,7 @@ namespace NewsHeadlines
             display.DisplayScore();
             display.Display_Records();
             display.SortingPointWise();
+            display.Count_Frequency();
 
 
         }
